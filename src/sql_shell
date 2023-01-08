@@ -1,0 +1,30 @@
+postgres=# CREATE TABLE cart(id SERIAL PRIMARY KEY, user_id INTEGER, cart_number VARCHAR(50), FOREIGN KEY(user_id) REFERENCES users(id));
+CREATE TABLE
+postgres=# SELECT * FROM cart;
+ id | user_id | cart_number 
+----+---------+-------------
+(0 rows)
+
+postgres=# INSERT INTO cart(user_id,cart_number)VALUES(1,'133231314'),(3,'1234563324'),(2,'785644'),(4,'8765432'),(5,'324563');
+INSERT 0 5
+postgres=# SELECT * FROM cart;
+ id | user_id | cart_number 
+----+---------+-------------
+  1 |       1 | 133231314
+  2 |       3 | 1234563324
+  3 |       2 | 785644
+  4 |       4 | 8765432
+  5 |       5 | 324563
+(5 rows)
+postgres=# CREATE TABLE car(id SERIAL PRIMARY KEY,model VARCHAR(25),price INTEGER);
+CREATE TABLE
+postgres=# INSERT INTO car(model,price)VALUES ('M5',123),('911 GT3',456),('Maybach',789),('Phantom',123456);
+INSERT 0 4
+postgres=# SELECT * FROM car;
+ id |  model  | price
+----+---------+--------
+  1 | M5      |    123
+  2 | 911 GT3 |    456
+  3 | Maybach |    789
+  4 | Phantom | 123456
+(4 rows)
