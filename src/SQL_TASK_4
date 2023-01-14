@@ -1,0 +1,43 @@
+-- Вывести всех клиентов из страны Canada
+SELECT * FROM customer as c WHERE c.country = 'Canada';
+-- Вывести все страны клиентов
+SELECT country FROM customer;
+-- Вывести количество всех заказов
+SELECT count(*) as orders_count FROM orders;
+-- Вывести максимальную стоимость заказа
+SELECT max(total_amount) as max_price FROM orders;
+-- Найти сумму всех заказов
+SELECT sum(total_amount) FROM orders;
+-- Найти сумму всех заказов за 2014 год
+SELECT sum(total_amount) FROM orders WHERE order_date BETWEEN DATE'1-1-2014' AND DATE'12-31-2014';
+-- Найти среднюю стоимость всех заказов
+SELECT avg(total_amount) FROM orders;
+-- Найти среднюю стоимость всех заказов по каждому клиенту
+SELECT customer_id,avg(total_amount) FROM orders GROUP BY customer_id;
+-- Найти всех клиентов, которые живут в Бразилии или Испании
+SELECT * FROM customer WHERE country = 'Spain' OR country = 'Brazil';
+-- Найти все заказы между 2013ым и 2014ым годами, которые стоили меньше 100.00$
+SELECT * FROM orders WHERE order_date BETWEEN DATE'1-1-2013' AND DATE'12-31-2014' AND total_amount < 100.00;
+-- Найти всех клиентов, которые в одной из стран: Испания, Италия, Германия, Франция. Отсортируйте по странам
+SELECT * FROM customer WHERE country = 'Spain'
+                          OR country = 'Italy'
+                          OR country = 'Germany'
+                          OR country = 'France' ORDER BY country;
+-- Найти все страны клиентов, страны которых содержаться в таблице поставщиков
+SELECT DISTINCT (c.country) FROM customer as c JOIN public.supplier s on c.country = s.country;
+-- Найти всех клиентов, имена которых начинаются на ‘Jo’
+SELECT * FROM customer WHERE first_name LIKE 'Jo%';
+-- Найти всех клиентов, имена которых заканчиваются на ‘a’ и имеют длину ровно 4 символа
+SELECT * FROM customer WHERE first_name LIKE '%a' AND first_name LIKE '____';
+-- Найти количество клиентов по странам
+SELECT country,count(id) as quantity FROM customer GROUP BY country;
+-- Найти количество клиентов по странам. Вывести в порядке убывания
+SELECT country,count(id) as quantity FROM customer GROUP BY country ORDER BY quantity desc;
+-- Найти общую сумму стоимости заказов и количество заказов по каждому клиенту (customer_id). Отсортировать по сумме
+SELECT c.first_name,sum(total_amount) as total_amount,count(o.id) as order_quantity FROM orders as o
+    JOIN customer c on o.customer_id = c.id GROUP BY first_name ORDER BY total_amount;
+-- Найти общую сумму стоимости заказов и количество заказов по каждому клиенту (customer_id), у которых общее количество заказов больше 20ти
+SELECT c.first_name,sum(total_amount) as total_amount,count(o.id) as order_quantity FROM orders as o
+    JOIN customer c on o.customer_id = c.id GROUP BY first_name ORDER BY total_amount;
+-- Найти количество городов в каждой из стран клиентов
+SELECT country,count(DISTINCT city) FROM customer GROUP BY country;
