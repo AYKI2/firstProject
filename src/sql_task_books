@@ -4,7 +4,7 @@ SELECT name,published_year,genre FROM books;
 --2
 SELECT DISTINCT(country) FROM authors;
 --3
-SELECT * FROM books WHERE published_year BETWEEN DATE'01-01-2020' AND DATE'01-01-2023';
+SELECT * FROM books WHERE published_year BETWEEN DATE'01-01-2020' AND DATE'12-31-2023';
 --4
 SELECT name,genre FROM books WHERE genre = 'DETECTIVE';
 --5
