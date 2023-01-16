@@ -1,0 +1,50 @@
+--TASKS
+--1
+SELECT name,published_year,genre FROM books;
+--2
+SELECT DISTINCT(country) FROM authors;
+--3
+SELECT * FROM books WHERE published_year BETWEEN DATE'01-01-2020' AND DATE'01-01-2023';
+--4
+SELECT name,genre FROM books WHERE genre = 'DETECTIVE';
+--5
+SELECT concat(first_name,' ', last_name) as author FROM authors;
+--6
+SELECT concat(first_name,' ', last_name) as author, country FROM authors WHERE  country = 'Germany' OR country = 'France' ORDER BY author;
+--7
+SELECT name,country,published_year,price,genre FROM books WHERE genre != 'ROMANCE' AND price > 500;
+--8
+SELECT * FROM authors WHERE gender = 'FEMALE' LIMIT 3;
+--9
+SELECT * FROM authors WHERE email LIKE '%.com' AND first_name LIKE '____' AND gender = 'FEMALE';
+--10
+SELECT country,count(country) as number_of_authors FROM authors GROUP BY country;
+--11
+SELECT country,count(country) as number_of_authors FROM authors GROUP BY country HAVING count(country) = 3;
+--12
+SELECT genre,count(genre) FROM books GROUP BY genre;
+--13
+SELECT min(price),genre FROM books WHERE genre = 'HISTORY' OR genre = 'BIOGRAPHY' GROUP BY genre ;
+--14
+SELECT b.name, p.name, language FROM books as b
+    JOIN publishers p on b.publisher_id = p.id
+    JOIN languages l on b.language_id = l.id;
+--15
+SELECT a.*,p.name FROM authors as a
+    JOIN books b on a.id= b.author_id
+    LEFT JOIN publishers p on b.publisher_id = p.id;
+--16
+SELECT concat(last_name,first_name),b.name as full_name FROM authors
+    LEFT JOIN books b on authors.id = b.author_id;
+--17
+SELECT count(language_id),l.language FROM books
+    JOIN languages l on l.id = books.language_id GROUP BY l.language;
+--18
+SELECT p.name,round(avg(b.price)) FROM books as b JOIN publishers p on b.publisher_id = p.id GROUP BY p.name;
+--19
+SELECT b.*,concat(first_name,' ',last_name) as full_name FROM books as b
+    JOIN authors a on b.author_id = a.id WHERE published_year BETWEEN DATE'01-01-2010' AND DATE'01-01-2015';
+--20
+SELECT b.name,sum(price) as revenue,concat(first_name,' ',last_name) as full_name FROM books as b
+    JOIN authors a on b.author_id = a.id WHERE published_year BETWEEN DATE'01-01-2010' AND DATE'01-01-2015'
+GROUP BY full_name,b.name;
