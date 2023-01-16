@@ -21,10 +21,12 @@ SELECT * FROM authors WHERE email LIKE '%.com' AND first_name LIKE '____' AND ge
 SELECT country,count(country) as number_of_authors FROM authors GROUP BY country;
 --11
 SELECT country,count(country) as number_of_authors FROM authors GROUP BY country HAVING count(country) = 3;
---12
+--11 - 2
 SELECT genre,count(genre) FROM books GROUP BY genre;
+--12
+SELECT genre,min(price) FROM books WHERE genre = 'ROMANCE' OR genre = 'DETECTIVE' GROUP BY genre;
 --13
-SELECT min(price),genre FROM books WHERE genre = 'HISTORY' OR genre = 'BIOGRAPHY' GROUP BY genre ;
+SELECT count(genre),genre FROM books WHERE genre = 'HISTORY' OR genre = 'BIOGRAPHY' GROUP BY genre;
 --14
 SELECT b.name, p.name, language FROM books as b
     JOIN publishers p on b.publisher_id = p.id
